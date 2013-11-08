@@ -1,4 +1,4 @@
-﻿/* http://keith-wood.name/svg.html
+/* http://keith-wood.name/svg.html
    SVG for jQuery v1.4.5.
    Written by Keith Wood (kbwood{at}iinet.com.au) August 2007.
    Dual licensed under the GPL (http://dev.jquery.com/browser/trunk/jquery/GPL-LICENSE.txt) and 
@@ -109,7 +109,7 @@ $.extend(SVGManager.prototype, {
 			this._afterLoad(container, svg, settings || {});
 		}
 		catch (e) {
-			if ($.browser.msie) {
+			if (!$.support.noCloneChecked) {
 				if (!container.id) {
 					container.id = 'svg' + (this._uuid++);
 				}
@@ -1036,13 +1036,13 @@ $.extend(SVGWrapper.prototype, {
 			}
 		};
 		if (url.match('<svg')) { // Inline SVG
-			loadSVG($.browser.msie ? loadXML4IE(url) :
+			loadSVG(!$.support.noCloneChecked ? loadXML4IE(url) :
 				new DOMParser().parseFromString(url, 'text/xml'));
 		}
 		else { // Remote SVG
-			$.ajax({url: url, dataType: ($.browser.msie ? 'text' : 'xml'),
+			$.ajax({url: url, dataType: (!$.support.noCloneChecked ? 'text' : 'xml'),
 				success: function(xml) {
-					loadSVG($.browser.msie ? loadXML4IE(xml) : xml);
+					loadSVG(!$.support.noCloneChecked ? loadXML4IE(xml) : xml);
 				}, error: function(http, message, exc) {
 					reportError(message + (exc ? ' ' + exc.message : ''));
 				}});
