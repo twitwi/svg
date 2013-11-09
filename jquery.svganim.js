@@ -24,8 +24,7 @@ $.each(['x', 'y', 'width', 'height', 'rx', 'ry', 'cx', 'cy', 'r', 'x1', 'y1', 'x
 			var attr = fx.elem.attributes.getNamedItem(realAttrName);
 			if (!fx.set) {
 				fx.start = (attr ? parseFloat(attr.value) : 0);
-				var offset = ($.fn.jquery >= '1.6' ? '' :
-					fx.options.curAnim['svg' + ccName] || fx.options.curAnim['svg-' + attrName]);
+				var offset = '';
 				if (/^[+-]=/.exec(offset)) {
 					fx.end = fx.start + parseFloat(offset.replace(/=/, ''));
 				}
@@ -44,9 +43,7 @@ $.fx.step['svgStroke-dasharray'] = $.fx.step['svg-stroke-dasharray'] = function(
 	var attr = fx.elem.attributes.getNamedItem('stroke-dasharray');
 	if (!fx.set) {
 		fx.start = parseDashArray(attr ? attr.value : '');
-		var offset = ($.fn.jquery >= '1.6' ? fx.end :
-			fx.options.curAnim['svgStrokeDashArray'] || fx.options.curAnim['svg-strokeDashArray'] ||
-			fx.options.curAnim['svgStroke-dasharray'] || fx.options.curAnim['svg-stroke-dasharray']);
+		var offset = fx.end;
 		fx.end = parseDashArray(offset);
 		if (/^[+-]=/.exec(offset)) {
 			offset = offset.split(/[, ]+/);
@@ -95,8 +92,7 @@ $.fx.step['svgViewBox'] = $.fx.step['svg-viewBox'] = function(fx) {
 	var attr = fx.elem.attributes.getNamedItem('viewBox');
 	if (!fx.set) {
 		fx.start = parseViewBox(attr ? attr.value : '');
-		var offset = ($.fn.jquery >= '1.6' ? fx.end :
-			fx.options.curAnim['svgViewBox'] || fx.options.curAnim['svg-viewBox']);
+		var offset = fx.end;
 		fx.end = parseViewBox(offset);
 		if (/^[+-]=/.exec(offset)) {
 			offset = offset.split(/[, ]+/);
