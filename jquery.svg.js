@@ -400,9 +400,11 @@ $.extend(SVGWrapper.prototype, {
 		var node = this._makeNode(args.parent, 'style', $.extend(
 			{type: 'text/css'}, args.settings || {}));
 		node.appendChild(this._svg.ownerDocument.createTextNode(args.styles));
+            /*
 		if ($.browser.opera) {
 			$('head').append('<style type="text/css">' + args.styles + '</style>');
 		}
+            */
 		return node;
 	},
 
@@ -417,9 +419,11 @@ $.extend(SVGWrapper.prototype, {
 		var node = this._makeNode(args.parent, 'script', $.extend(
 			{type: args.type || 'text/javascript'}, args.settings || {}));
 		node.appendChild(this._svg.ownerDocument.createTextNode(args.script));
+            /*
 		if (!$.browser.mozilla) {
 			$.globalEval(args.script);
 		}
+            */
 		return node;
 	},
 
